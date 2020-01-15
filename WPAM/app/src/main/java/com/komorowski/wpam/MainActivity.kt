@@ -13,7 +13,9 @@ import java.time.format.DateTimeFormatter
 
 class MainActivity : AppCompatActivity() {
 
-    var dbHandler: DatabaseHandler? = null
+    companion object {
+        var dbHandler: DatabaseHandler? = null
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -22,79 +24,28 @@ class MainActivity : AppCompatActivity() {
         //init db
         dbHandler = DatabaseHandler(this)
 
-        //on Click Save button
-        button_save.setOnClickListener(View.OnClickListener {
-            // checking input text should not be null
-            val entry: Entry = Entry()
-            var success: Boolean = false
-            entry.testText = editText_firstName.text.toString()
-            entry.date = editText_firstName.text.toString()
-            entry.type = "SAVED"
-            success = dbHandler!!.addEntry(entry)
-            if (success){
-                val toast = Toast.makeText(this,"Saved Successfully", Toast.LENGTH_LONG).show()
-            }
-            //TODO
-            //remove comment (added to make testing easier)
-            //editText_firstName.text.clear()
-        })
-
         //on Click IN button
         button_in.setOnClickListener(View.OnClickListener {
-            // checking input text should not be null
-            val entry: Entry = Entry()
-            var success: Boolean = false
-            entry.testText = editText_firstName.text.toString()
-            entry.date = editText_firstName.text.toString()
-            entry.type = "IN"
-            success = dbHandler!!.addEntry(entry)
-            if (success){
-                val toast = Toast.makeText(this,"Saved IN Successfully", Toast.LENGTH_LONG).show()
-            }
-            //TODO
-            //remove comment (added to make testing easier)
-            //editText_firstName.text.clear()
+            newEntry("IN")
         })
 
         //on Click OUT button
         button_out.setOnClickListener(View.OnClickListener {
-            // checking input text should not be null
-            val entry: Entry = Entry()
-            var success: Boolean = false
-            entry.testText = editText_firstName.text.toString()
-            entry.date = editText_firstName.text.toString()
-            entry.type = "OUT"
-            success = dbHandler!!.addEntry(entry)
-            if (success){
-                val toast = Toast.makeText(this,"Saved OUT Successfully", Toast.LENGTH_LONG).show()
-            }
-            //TODO
-            //remove comment (added to make testing easier)
-            //editText_firstName.text.clear()
+            newEntry("OUT")
         })
 
         //on Click DELETE button
         button_delete.setOnClickListener(View.OnClickListener {
-            // checking input text should not be null
-            if (!editText_id.text.toString().equals("")){
-                var success: Boolean = false
-                val deleteID = editText_id.text.toString()
+            //switching to another activity (DeleteActivity)
+            val intent = Intent(this, DeleteActivity::class.java)
+            startActivity(intent)
+        })
 
-                success = dbHandler!!.deleteRow(deleteID)
-
-                if (success){
-                    val toast = Toast.makeText(this,"Deleted Successfully " + deleteID, Toast.LENGTH_LONG).show()
-                    editText_id.text.clear()
-                    var user = dbHandler!!.getAllEntries()
-                    textView_show.setText(user)
-                }
-            }
-
-            //TODO
-            //add delete activity
-            //val intent = Intent(this, Delete::class.java)
-            //startActivity(intent)
-
+        //on Click SMS button
+        button_message.setOnClickListener(View.OnClickListener {
+            //switching to another activity (DeleteActivity)
+            val intent = Intent(this, MessageActivity::class.java)
+            startActivity(intent)
         })
 
         //on Click show button
@@ -104,10 +55,30 @@ class MainActivity : AppCompatActivity() {
         })
 
     }
-//    fun time(): String{
+    fun entryTime(): String{
+        val current = LocalDateTime.now()
+        val formatter = DateTimeFormatter.ofPattern("EEEE, dd MMMM yyyy, HH:mm:ss")
+        val formatted = current.format(formatter).toString()
+        return formatted
+    }
 
-//        val current = LocalDateTime.now()
-//        val formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss")
-//        val formatted = current.format(formatter).toString()
-//    }
+    fun newEntry(type: String): Boolean{
+        val entry: Entry = Entry()
+        var success: Boolean = false
+        //entry.testText = "puste"
+        entry.date = entryTime()
+        entry.type = type
+        success = dbHandler!!.addEntry(entry)
+        if (success){
+            val toast = Toast.makeText(this,"Saved " + type + " Successfully", Toast.LENGTH_LONG).show()
+        }
+        //TODO
+        //remove comment (added to make testing easier)
+        //editText_firstName.text.clear()
+
+        return true
+    }
 }
+//TODO
+// - wysylanie wiadomosci do ludzi
+// - GPS???

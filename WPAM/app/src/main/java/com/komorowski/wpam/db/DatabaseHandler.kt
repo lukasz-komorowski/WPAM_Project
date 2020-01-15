@@ -12,7 +12,8 @@ class DatabaseHandler(context: Context) :
 
     override fun onCreate(db: SQLiteDatabase?) {
         val CREATE_TABLE = "CREATE TABLE $TABLE_NAME " +
-                "($ID Integer PRIMARY KEY, $TEST_TEXT TEXT, $DATE TEXT, $TYPE TEXT)"
+                "($ID Integer PRIMARY KEY, $DATE TEXT, $TYPE TEXT)"
+                //"($ID Integer PRIMARY KEY, $TEST_TEXT TEXT, $DATE TEXT, $TYPE TEXT)"
         db?.execSQL(CREATE_TABLE)
     }
 
@@ -25,7 +26,7 @@ class DatabaseHandler(context: Context) :
         //Create and/or open a database that will be used for reading and writing.
         val db = this.writableDatabase
         val values = ContentValues()
-        values.put(TEST_TEXT, entry.testText)
+        //values.put(TEST_TEXT, entry.testText)
         values.put(DATE, entry.date)
         values.put(TYPE, entry.type)
         val _success = db.insert(TABLE_NAME, null, values)
@@ -53,11 +54,12 @@ class DatabaseHandler(context: Context) :
             if (cursor.moveToFirst()) {
                 do {
                     var id = cursor.getString(cursor.getColumnIndex(ID))
-                    var testText = cursor.getString(cursor.getColumnIndex(TEST_TEXT))
+                    //var testText = cursor.getString(cursor.getColumnIndex(TEST_TEXT))
                     var date = cursor.getString(cursor.getColumnIndex(DATE))
                     var type = cursor.getString(cursor.getColumnIndex(TYPE))
 
-                    allEntries = "$allEntries\n$id $testText $date $type"
+                    //allEntries = "$allEntries\n$id $testText $date $type"
+                    allEntries = "$allEntries\n$id $date $type"
                 } while (cursor.moveToNext())
             }
         }
@@ -71,7 +73,7 @@ class DatabaseHandler(context: Context) :
         private val DB_VERSIOM = 1;
         private val TABLE_NAME = "entries"
         private val ID = "id"
-        private val TEST_TEXT = "testText"
+        //private val TEST_TEXT = "testText"
         private val DATE = "date"
         private val TYPE = "type"
     }

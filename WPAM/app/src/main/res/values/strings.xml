@@ -1,8 +1,5 @@
 <resources>
-    <string name="app_name">WPAM</string>
-    <string name="f_name">First Name</string>
-    <string name="l_name">Last Name</string>
-    <string name="save">Save</string>
+    <string name="app_name">KorpoLife</string>
     <string name="show">Show</string>
     <string name="in">IN</string>
     <string name="out">OUT</string>
@@ -16,4 +13,5 @@
 
     <string name="empty"></string>
     <string name="message_example">Czesc Kochanie, niestety musze dzisiaj zostac dluzej w pracy i bede troche pozniej w domu</string>
+    <string name="gps">GPS</string>
 </resources>

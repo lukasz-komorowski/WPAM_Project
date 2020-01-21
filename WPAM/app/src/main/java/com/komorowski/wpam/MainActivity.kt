@@ -23,15 +23,18 @@ class MainActivity : AppCompatActivity() {
 
         //init db
         dbHandler = DatabaseHandler(this)
+        showEntries()
 
         //on Click IN button
         button_in.setOnClickListener(View.OnClickListener {
             newEntry("IN")
+            showEntries()
         })
 
         //on Click OUT button
         button_out.setOnClickListener(View.OnClickListener {
             newEntry("OUT")
+            showEntries()
         })
 
         //on Click DELETE button
@@ -50,11 +53,17 @@ class MainActivity : AppCompatActivity() {
 
         //on Click show button
         button_show.setOnClickListener(View.OnClickListener {
-            var user = dbHandler!!.getAllEntries()
-            textView_show.setText(user)
+            showEntries()
         })
 
     }
+
+    fun showEntries(){
+        var user = dbHandler!!.getAllEntries()
+        textView_show.setText(user)
+        scrollView_show_main.fullScroll(View.FOCUS_DOWN)
+    }
+
     fun entryTime(): String{
         val current = LocalDateTime.now()
         val formatter = DateTimeFormatter.ofPattern("EEEE, dd MMMM yyyy, HH:mm:ss")

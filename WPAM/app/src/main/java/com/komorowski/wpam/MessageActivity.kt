@@ -21,7 +21,7 @@ class MessageActivity : AppCompatActivity() {
         setContentView(R.layout.activity_message)
 
         val actionbar = supportActionBar
-        actionbar!!.title = "New Activity"
+        actionbar!!.title = "Sending message"
         actionbar.setDisplayHomeAsUpEnabled(true)
         actionbar.setDisplayHomeAsUpEnabled(true)
 

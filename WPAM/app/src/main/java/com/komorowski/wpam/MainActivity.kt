@@ -6,6 +6,7 @@ import com.komorowski.wpam.model.Entry
 import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle
 import android.view.View
+import android.widget.ScrollView
 import android.widget.Toast
 import kotlinx.android.synthetic.main.activity_main.*
 import java.time.LocalDateTime
@@ -61,7 +62,7 @@ class MainActivity : AppCompatActivity() {
     fun showEntries(){
         var user = dbHandler!!.getAllEntries()
         textView_show.setText(user)
-        scrollView_show_main.fullScroll(View.FOCUS_DOWN)
+        scrollView_show_main.fullScroll(ScrollView.FOCUS_DOWN)
     }
 
     fun entryTime(): String{
